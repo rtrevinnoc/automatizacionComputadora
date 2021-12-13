@@ -7,12 +7,15 @@ print("Listening on *", port)
 arduino = serial.Serial(port=port, baudrate=9600, timeout=1)
 
 while True:
-    cur = 30 + (int(arduino.readline().decode("utf-8").strip()) * 100) / 255
-    os.system("brightnessctl set " + str(cur) + "%")
+    try:
+        cur = 30 + (int(arduino.readline().decode("utf-8").strip()) * 100) / 255
+        os.system("brightnessctl set " + str(cur) + "%")
 
-    if (cur > 40):
-        os.system("xwallpaper --zoom $HOME/Pictures/Wallpapers/elephant.png")
-    else:
-        os.system("xwallpaper --zoom $HOME/Pictures/Wallpapers/elephant-dark.png")
+        if (cur > 40):
+            os.system("xwallpaper --zoom $HOME/Pictures/Wallpapers/elephant.png")
+        else:
+            os.system("xwallpaper --zoom $HOME/Pictures/Wallpapers/elephant-dark.png")
+    except:
+        pass
 
     time.sleep(3)
